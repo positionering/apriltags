@@ -23,11 +23,14 @@ using namespace cv;
 int main(int argc, char *argv[])
 {
     // Initialize camera
-    VideoCapture cap(0);
+    VideoCapture cap(1);
     if (!cap.isOpened()) {
         cerr << "Couldn't open video capture device" << endl;
         return -1;
     }
+    
+    cap.set(CV_CAP_PROP_FRAME_WIDTH,1920);
+    cap.set(CV_CAP_PROP_FRAME_HEIGHT,1080);
 
     // Initialize tag detector with options
     apriltag_family_t *tf = tag36h11_create();
@@ -65,16 +68,17 @@ int main(int argc, char *argv[])
             // fabriks kalibrerad d435 kameran
           apriltag_detection_info_t info;
           info.det = det;
-          info.tagsize = 0.088; //size april tag (88 mm liten, 185 mm stor)
-          info.fx = 1394.33;//1983.97376;
-          info.fy = 1394.95;//1981.62916;
-          info.cx = 964.117;//998.341216;
-          info.cy = 537.659;//621.618227;
-
+         info.tagsize = 0.1615;  // size april tag (88 mm liten, 185 mm stor) (0.1615 stor?)
+        info.fx = 1660.70; // 1394.33;     // 1983.97376;
+        info.fy = 1668.19; // 1394.95;     // 1981.62916;
+        info.cx = 886.07; // 964.117;     // 998.341216;
+        info.cy = 522.40; // 537.659;     // 621.618227;
+          
           // Then call estimate_tag_pose.
           double err = estimate_tag_pose(&info, &pose);
-          
-        cout << pose.t->data[0] << " x " << pose.t->data[1] << " y " << err << " err " << det->hamming << " hamming " << det->decision_margin << " decision_margin"  << endl;
+         
+         cout << pose.t->data[0] << "  " << pose.t->data[1] << "  " << pose.t->data[2]<<std::endl; 
+       // cout << pose.t->data[0] << " x " << pose.t->data[1] << " y " << err << " err " << det->hamming << " hamming " << det->decision_margin << " decision_margin"  << endl;
             
         }
         apriltag_detections_destroy(detections);
