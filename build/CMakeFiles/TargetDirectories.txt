@@ -1,3 +1,0 @@
-/home/nadim/Desktop/aprilGrej/apriltags/build/CMakeFiles/rebuild_cache.dir
-/home/nadim/Desktop/aprilGrej/apriltags/build/CMakeFiles/apriltags.dir
-/home/nadim/Desktop/aprilGrej/apriltags/build/CMakeFiles/edit_cache.dir
